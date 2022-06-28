@@ -1,0 +1,52 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Stone Challenge",
+        "version":"1.0.0",
+        "description":"Mid Backend Developer Nodejs",
+        "contact": {
+            "name":"Artur Castro Polo Norte",
+            "url": "https://github.com/arturhvcpn",
+            "email":"arturcastropolonorte@gmail.com"
+        }
+    },
+    "paths":{
+        "/api": {
+            "get": {
+                "tags": ["example"],
+                "summary":"example",
+                "description":"example",
+                "parameters":[{
+                    "name":"Artur Castro Polo Norte",
+                    "in":"path",
+                    "description":"example",
+                    "required":true,
+                    "schema": {
+                        "type":"string"
+                    }
+                }],
+                "responses":{
+                    "200":{
+                        "description":"example",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties": {
+                                        "example": {
+                                            "type":"array",
+                                            "items": {
+                                                "type":"string",
+                                                "example":"example"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
