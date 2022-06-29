@@ -14,7 +14,7 @@
 Cloning with protocol **HTTP**:
 
 ```sh
-git clone https://
+git clone https://github.com/arturhvcpn/stone-challenge.git
 ```
 
 or
@@ -22,7 +22,7 @@ or
 Cloning with protocol **SSH**:
 
 ```sh
-git clone git@git
+git clone git@github.com:arturhvcpn/stone-challenge.git
 ```
 
 ---
@@ -31,7 +31,7 @@ git clone git@git
 ### Change directory 
 
 ```sh
-cd stoneChallenge/
+cd stone-challenge/
 ```
 
 and after
