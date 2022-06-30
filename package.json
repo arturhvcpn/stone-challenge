@@ -6,13 +6,15 @@
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "start": "node ./dist/shared/http/server.ts",
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/http/server.ts",
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "test": "jest"
   },
   "keywords": [],
   "author": "Artur Castro Polo Norte",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1164.0",
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",

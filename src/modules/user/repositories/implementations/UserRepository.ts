@@ -1,10 +1,15 @@
+import { DynamoClient } from "../../../../shared/infra/dynamo/DynamoClient";
 import { User } from "../../model/User";
 import { IUserRepository, UserProps } from "../IUserRepository";
 
 class UserRepository implements IUserRepository {
     private users: User[] = [];
-
+    private dynamoDB: DynamoClient;
     private static INSTANCE: UserRepository;
+
+    constructor(){
+        this.dynamoDB = new DynamoClient();
+    }
 
     public static getInstance(): UserRepository {
         if(!UserRepository.INSTANCE){
@@ -26,12 +31,15 @@ class UserRepository implements IUserRepository {
             updatedAt: new Date,
             avatarUrl: null
         });
-
-        this.users.push(user);
+        
+        await this.dynamoDB.create(user);
+        //this.users.push(user);
     }
 
     public async list(nickname: string): Promise<User | undefined> {
         const user = this.users.find(user => user.nickname === nickname);
+        const data = await this.dynamoDB.list(nickname);
+        console.log(data)
 
         return user;
     }
