@@ -27,7 +27,6 @@ git clone git@github.com:arturhvcpn/stone-challenge.git
 
 ---
 
-
 ### Change directory 
 
 ```sh
@@ -70,7 +69,6 @@ With **Yarn**:
 yarn dev
 ```
 
-
 ### Execute test
 
 
@@ -86,3 +84,5 @@ With **Yarn**:
 ```sh
 yarn test
 ```
+
+# To see all endpoints go to {yourhost}/api/swagger
