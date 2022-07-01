@@ -11,10 +11,10 @@ class CreateUserController {
 
             await this.createUserUseCase.execute({ name, lastname, password, nickname, email });
 
-            return response.status(200).json({message:'User created with successful'});
+            return response.status(201).json({message:'User created with successful'});
         } catch (error) {
             const errorTyped = error as unknown as AppError;
-            throw new AppError(errorTyped.httpStatus, errorTyped.message)
+            return response.status(errorTyped.httpStatus).json({ Error: errorTyped.message });
         }
     }
 }
