@@ -9,12 +9,12 @@ class ListUserController {
         try {
             const { nickname } = request.params;
             
-            const user = this.listUserUseCase.execute(nickname);
-
+            const user = await this.listUserUseCase.execute(nickname);
+            
             return response.status(200).json(user);
         } catch (error) {
             const errorTyped = error as unknown as AppError;
-            throw new AppError(errorTyped.httpStatus, errorTyped.message)
+            return response.status(errorTyped.httpStatus).json({ Error: errorTyped.message });
         }
     }
 }

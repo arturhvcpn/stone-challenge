@@ -1,10 +1,22 @@
 import { User } from "../../model/User";
 import { IUserRepository, UserProps } from "../IUserRepository";
+import { DynamoClient } from "../../../../shared/infra/dynamo/DynamoClient";
+
+function attributeExists(value:any): boolean {
+    if(value > 0 || value === undefined){
+        return true;
+    } else {
+        return false;
+    }
+}
 
 class UserRepository implements IUserRepository {
-    private users: User[] = [];
-
+    private dynamoDB: DynamoClient;
     private static INSTANCE: UserRepository;
+
+    constructor(){
+        this.dynamoDB = new DynamoClient();
+    }
 
     public static getInstance(): UserRepository {
         if(!UserRepository.INSTANCE){
@@ -22,30 +34,36 @@ class UserRepository implements IUserRepository {
             nickname,
             email,
             password,
-            createdAt: new Date,
-            updatedAt: new Date,
+            createdAt: new Date().toDateString(),
+            updatedAt: new Date().toDateString(),
             avatarUrl: null
         });
-
-        this.users.push(user);
+        
+        await this.dynamoDB.create(user);
     }
 
-    public async list(nickname: string): Promise<User | undefined> {
-        const user = this.users.find(user => user.nickname === nickname);
+    public async list(nickname: string): Promise<[User]> {
+        const data = await this.dynamoDB.list(nickname);
+        
+        const user = data as unknown as [User];
 
         return user;
     }
     
-    public async findByEmail(email: string): Promise<User | undefined> {
-        const user = this.users.find(user => user.email === email);
-
-        return user;
+    public async findByEmail(email: string): Promise<boolean> {
+        const data = await this.dynamoDB.findByEmail(email);
+        
+        const emailExists = attributeExists(data)
+        
+        return emailExists;
     }
 
-    public async findByNickname(nickname: string): Promise<User | undefined> {
-        const user = this.users.find(user => user.nickname === nickname);
+    public async findByNickname(nickname: string): Promise<boolean> {
+        const data = await this.dynamoDB.findByNickname(nickname);
+        
+        const nicknameExists = attributeExists(data)
 
-        return user;
+        return nicknameExists;
     }
     
 }
