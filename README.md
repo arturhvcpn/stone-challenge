@@ -86,3 +86,4 @@ yarn test
 ```
 
 # To see all endpoints go to {yourhost}/api/swagger
+![Swagger screen with all endpoints](https://user-images.githubusercontent.com/53799608/176903360-e7f0d32d-1b2a-4143-aba1-fe7930551b62.png)
