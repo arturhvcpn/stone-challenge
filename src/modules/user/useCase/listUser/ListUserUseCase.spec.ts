@@ -12,7 +12,7 @@ describe('Unit - ListUser', () => {
         listUserUseCase = new ListUserUseCase(userRepositoryInMemory);
     });
 
-    it('it should be list test user', async () => {
+    xit('it should be list test user', async () => {
         await userRepositoryInMemory.create({
             name: 'Usuario',
             lastname: 'Teste Ton',
