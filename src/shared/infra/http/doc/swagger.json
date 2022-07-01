@@ -11,15 +11,15 @@
         }
     },
     "paths":{
-        "/api": {
+        "/api/user/list/{nickname}": {
             "get": {
-                "tags": ["example"],
-                "summary":"example",
-                "description":"example",
+                "tags": ["User"],
+                "summary":"List User by nickname",
+                "description":"List User by nickname",
                 "parameters":[{
-                    "name":"Artur Castro Polo Norte",
+                    "name":"nickname",
                     "in":"path",
-                    "description":"example",
+                    "description":"nickname from user",
                     "required":true,
                     "schema": {
                         "type":"string"
@@ -27,20 +27,215 @@
                 }],
                 "responses":{
                     "200":{
-                        "description":"example",
+                        "description":"List user with successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"array",
+                                    "items" : {
+                                        "type":"object",
+                                        "properties": {
+                                            "lastname": {
+                                                "type":"string",
+                                                "example":"Teste Stone"
+                                            },
+                                            "nickname": {
+                                                "type":"string",
+                                                "example":"stone"
+                                            },
+                                            "updatedAt": {
+                                                "type":"string",
+                                                "example":"Thu Jun 30 2022"
+                                            },
+                                            "createdAt": {
+                                                "type":"string",
+                                                "example":"Thu Jun 30 2022"
+                                            },
+                                            "avatarUrl": {
+                                                "type":"string",
+                                                "example":"null"
+                                            },
+                                            "id": {
+                                                "type":"string",
+                                                "example":"1b4709bd-0407-4646-ac79-6628f6b664de"
+                                            },
+                                            "email": {
+                                                "type":"string",
+                                                "example":"stone@stone.com.br"
+                                            },
+                                            "name": {
+                                                "type":"string",
+                                                "example":"Usuario"
+                                            }
+                                        }                                        
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description":"User not found by nickname",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type":"object",
                                     "properties": {
-                                        "example": {
-                                            "type":"array",
-                                            "items": {
-                                                "type":"string",
-                                                "example":"example"
-                                            }
+                                        "Error": {
+                                            "type":"string",
+                                            "example":"Nickname doesn't find"
                                         }
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/create": {
+            "post": {
+                "tags": ["User"],
+                "summary":"Create User",
+                "description":"Create User",
+                "requestBody": {
+                    "content":  {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "lastname": {
+                                "type":"string",
+                                "example":"Teste Stone"
+                            },
+                            "nickname": {
+                                "type":"string",
+                                "example":"stone"
+                            },
+                            "email": {
+                                "type":"string",
+                                "example":"stone@stone.com.br"
+                            },
+                            "password": {
+                                "type":"string",
+                                "example":"123456"
+                            },
+                            "name": {
+                                "type":"string",
+                                "example":"Usuario"
+                            }
+                          },
+                          "example": {
+                            "name":"Usuario",
+                            "lastname":"Teste Stone",
+                            "email": "stone@stone.com.br",
+                            "nickname": "stone",
+                            "password": "123456"
+                          }
+                        }
+                      }
+                    }
+                  },
+                "responses":{
+                    "201":{
+                        "description":"Create user with successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User created with successful"
+                                        }
+                                    }                                        
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Email already exists (OR) Nick name already exists ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties": {
+                                        "Error": {
+                                            "type":"string",
+                                            "example":"Email already exists (OR) Nickname already exists"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/access/increment": {
+            "get": {
+                "tags": ["Access Number"],
+                "summary":"Increment access number to webpage of ton",
+                "description":"Increment access number to webpage of ton",
+                "responses":{
+                    "200":{
+                        "description":"Increment access number at ton.com.br with successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties": {
+                                        "NumeroDeAcesso": {
+                                            "type":"number",
+                                            "example":"6155"
+                                        }
+                                    }                                        
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description":"Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"string",
+                                    "example":"Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/access/consult": {
+            "get": {
+                "tags": ["Access Number"],
+                "summary":"Consult access number to webpage of ton",
+                "description":"Consult access number to webpage of ton",
+                "responses":{
+                    "200":{
+                        "description":"Consult access number at ton.com.br with successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties": {
+                                        "NumeroDeAcesso": {
+                                            "type":"number",
+                                            "example":"6154"
+                                        }
+                                    }                                        
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description":"Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"string",
+                                    "example":"Internal server error"
                                 }
                             }
                         }
